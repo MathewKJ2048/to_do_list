@@ -30,7 +30,10 @@ def render_list(t):
 			answer+=augment(spaces+ITEM,spaces+CONTINUE,rendered_child)
 	return answer
 
+pminrow = 0
+
 def render(pad,data):
+	global pminrow
 	RENDER_LIST = render_list(data)
 	pad.clear()
 	rs = get_render_string(data)
@@ -46,7 +49,12 @@ def render(pad,data):
 	pad.addstr(rsl[1])
 	HEIGHT = curses.LINES
 	WIDTH = curses.COLS
-	pad.refresh(0,0,0,0,HEIGHT-1,WIDTH-1)
+	s_id = get_index(get_select())
+	if s_id < pminrow:
+		pminrow = s_id
+	if s_id - pminrow >= HEIGHT:
+		pminrow = s_id - HEIGHT +1
+	pad.refresh(pminrow,0,0,0,HEIGHT-1,WIDTH-1)
 
 def get_render_string(data):
 	RENDER_LIST = render_list(data)
