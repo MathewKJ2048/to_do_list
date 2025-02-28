@@ -49,6 +49,8 @@ def process(key):
 def main(stdscr):
 
 	curses.use_default_colors()
+	curses.init_pair(1,PRIMARY_COLOR, -1)
+	curses.init_pair(2,-1,PRIMARY_COLOR)
 	curses.curs_set(0)
 	stdscr.clear()
 	pad = curses.newpad(1024,1024)

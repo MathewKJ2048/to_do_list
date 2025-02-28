@@ -10,16 +10,12 @@ def augment(head,tail,rlist):
 		rlist_new.append(tail+r)
 	return rlist_new
 
-def selection_render(s):
-	if get_mode() == VIEW:
-		return '<'+s+'>'
-	else:
-		return '['+s+']'
+
 
 def render_list(t):
 	name = t.name
 	if t == get_select():
-		name = selection_render(name)
+		name = SPECIAL
 	N = len(t.children)
 	if N!=0:
 		name+="┓"
@@ -27,7 +23,7 @@ def render_list(t):
 	for i in range(N):
 		child = t.children[i]
 		rendered_child = render_list(child)
-		spaces = (len(name)-1)*" "
+		spaces = (len(t.name))*" "
 		if i == N-1:
 			answer+=augment(spaces+END,spaces+" ",rendered_child)
 		else:
@@ -37,7 +33,17 @@ def render_list(t):
 def render(pad,data):
 	RENDER_LIST = render_list(data)
 	pad.clear()
-	pad.addstr(get_render_string(data))
+	rs = get_render_string(data)
+	rsl = rs.split(SPECIAL)
+	pad.addstr(rsl[0])
+	if get_mode() == VIEW:
+		pad.addstr(get_select().name,curses.color_pair(1))
+	else:
+		st = " "
+		if len(get_select().name)!=0:
+			st = get_select().name
+		pad.addstr(st,curses.color_pair(2))
+	pad.addstr(rsl[1])
 	HEIGHT = curses.LINES
 	WIDTH = curses.COLS
 	pad.refresh(0,0,0,0,HEIGHT-1,WIDTH-1)

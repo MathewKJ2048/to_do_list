@@ -17,4 +17,8 @@ SHIFT_UP = ord('ő')
 SHIFT_DOWN = ord('Ő')
 SHIFT_RIGHT = ord('ƒ')
 
+SPECIAL = 'ő'
+
+PRIMARY_COLOR = curses.COLOR_RED
+
 
