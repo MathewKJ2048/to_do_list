@@ -29,7 +29,7 @@ def get_select():
 
 def clean_quit():
 	with open(file_name,"w") as f:
-		json.dump(tree_to_dict(data),f)
+		json.dump(tree_to_dict(data),f,indent=4)
 
 def child():
 	global select

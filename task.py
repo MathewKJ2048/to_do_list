@@ -3,6 +3,7 @@ class Task:
 		self.name = ""
 		self.children = []
 		self.parent = None
+		self.complete = False
 	def stringify(self):
 		s = self.name
 		if len(self.children)==0:

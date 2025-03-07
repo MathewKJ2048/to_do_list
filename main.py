@@ -5,7 +5,7 @@ from control import *
 
 def process_edit(key):
 	select = get_select()
-	if key in [curses.KEY_UP,curses.KEY_DOWN,curses.KEY_LEFT,curses.KEY_RIGHT]:
+	if key in SPECIAL_KEYS or ord(chr(key)) in SPECIAL_CHARS:
 		return
 	if key == curses.KEY_BACKSPACE:
 		if len(select.name)==0:
@@ -56,12 +56,19 @@ def main(stdscr):
 	pad = curses.newpad(1024,1024)
 
 	while True:
-		render_aux(pad,data)
+		render(pad,data)
 		key = stdscr.getch()
 		process(key)
 		if key == ord('q'):
 			break
 		
-curses.wrapper(main)
+
+try:
+	curses.wrapper(main)
+except:
+	print("panic exit: save changes? y/n")
+	ch = input()
+	if ch == 'Y' or ch == 'y':
+		clean_quit()
 
 	
