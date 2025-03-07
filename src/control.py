@@ -39,7 +39,7 @@ def toggle_complete():
 
 def clean_quit():
 	with open(file_name,"w") as f:
-		json.dump(tree_to_dict(data),f,indent=4)
+		json.dump(tree_to_dict(data),f,indent=INDENT_NUMBER)
 
 def child():
 	global select

@@ -3,9 +3,12 @@ from task import *
 from control import *
 
 
+
 def render(pad, data):
 	pad.clear()
-	rs = get_render_string(data)
+	RENDER_LIST = render_list(data)
+	rs = get_render_string(RENDER_LIST)
+	x, y = coordinates(RENDER_LIST)
 	if SPECIAL in rs:
 		rsl = re.split(SPECIAL+"+",rs)
 		pad.addstr(rsl[0])
@@ -16,15 +19,23 @@ def render(pad, data):
 		pad.addstr(rs)
 	HEIGHT = curses.LINES
 	WIDTH = curses.COLS
-	pad.refresh(0,0,0,0,HEIGHT-1,WIDTH-1)
+	minrow = max(0,y-HEIGHT+1)
+	mincol = max(0,x-WIDTH+len(get_string(get_select()))+2)
+	pad.refresh(minrow,mincol,0,0,HEIGHT-2,WIDTH-2)
 
-def get_render_string(data):
-	RENDER_LIST = render_list(data)
+def get_render_string(RENDER_LIST):
 	s = ""
 	for i in range(len(RENDER_LIST)):
 		s+=RENDER_LIST[i]
 		s+="\n"
 	return s
+
+def coordinates(RENDER_LIST):
+	for y in range(len(RENDER_LIST)):
+		for x in range(len(RENDER_LIST[y])):
+			if RENDER_LIST[y][x]==SPECIAL:
+				return (x,y)
+	return (0,0)
 
 def get_string(t):
 	e = t.name
