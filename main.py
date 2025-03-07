@@ -56,7 +56,7 @@ def main(stdscr):
 	pad = curses.newpad(1024,1024)
 
 	while True:
-		render(pad,data)
+		render_aux(pad,data)
 		key = stdscr.getch()
 		process(key)
 		if key == ord('q'):

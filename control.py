@@ -4,9 +4,8 @@ from task import *
 with open(file_name) as f:
 	data = populate_tree(json.loads(f.read()))
 
-
 MODE = VIEW
-select = data
+select = data.children[0]
 
 def edit_mode():
 	global MODE
@@ -42,6 +41,8 @@ def child():
 def parent():
 	global select
 	if select.parent == None:
+		return False
+	if select.parent.parent == None:
 		return False
 	select = select.parent
 	return True

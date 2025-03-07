@@ -2,6 +2,7 @@ import curses
 import sys
 import json
 import os
+import re
 
 file_name = sys.argv[1]
 

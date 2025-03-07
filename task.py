@@ -46,3 +46,12 @@ def get_index(task):
 			break
 		index+=get_size(c)
 	return index
+
+def get_sibling_index(task):
+	if task.parent == None:
+		return 0
+	p = task.parent
+	for i in range(len(p.children)):
+		if p.children[i]==task:
+			return i
+	return 0
