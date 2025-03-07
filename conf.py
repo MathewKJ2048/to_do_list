@@ -20,6 +20,8 @@ SHIFT_RIGHT = ord('ƒ')
 
 SPECIAL = 'ő'
 
+
+
 PRIMARY_COLOR = curses.COLOR_RED
 
 SPECIAL_KEYS = [curses.KEY_UP,curses.KEY_DOWN,curses.KEY_LEFT,curses.KEY_RIGHT]

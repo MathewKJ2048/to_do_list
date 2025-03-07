@@ -27,6 +27,16 @@ def get_select():
 	global select
 	return select
 
+
+
+
+def toggle_complete():
+	global select
+	if len(select.children) == 0 or all_leafs_complete(select):
+		select.complete = not select.complete
+		return True
+	return False
+
 def clean_quit():
 	with open(file_name,"w") as f:
 		json.dump(tree_to_dict(data),f,indent=4)

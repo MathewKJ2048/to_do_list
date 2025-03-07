@@ -10,10 +10,7 @@ def render(pad, data):
 		rsl = re.split(SPECIAL+"+",rs)
 		pad.addstr(rsl[0])
 		special_color = curses.color_pair(1) if get_mode() == VIEW else curses.color_pair(2)
-		st = get_select().name
-		if len(st)==0:
-			st = " "
-		pad.addstr(st,special_color)
+		pad.addstr(get_string(get_select()),special_color)
 		pad.addstr(rsl[1])
 	else:
 		pad.addstr(rs)
@@ -29,25 +26,24 @@ def get_render_string(data):
 		s+="\n"
 	return s
 
-
+def get_string(t):
+	e = t.name
+	if len(e)==0:
+		e = " "
+	if t.complete:
+		e = len(e)*"-"
+	return e
 
 def col(lc,id,initial=False):
 	if lc == []:
 		return []
-	
-
-	def get_string(c):
-		e = c.name
-		if len(e)==0:
-			e = " "
-		if get_select() == c:
-			e = len(e)*SPECIAL
-		return e
 
 	l = []
 	m = 0 # maximum length
 	for c in lc:
 		e = get_string(c)
+		if get_select() == c:
+			e = len(e)*SPECIAL
 		l.append(e)
 		if m < len(e):
 			m = len(e)

@@ -27,10 +27,21 @@ def populate_tree(data): # type of data is json object with exactly one key
 def tree_to_dict(task):
 	l = []
 	for c in task.children:
-		l.append(tree_to_dict(c))
+		if not c.complete:
+			l.append(tree_to_dict(c))
 	return {
 		task.name:l
 	}
+
+def all_leafs_complete(task):
+	# base case if task is leaf
+	if len(task.children)==0 and not task.complete:
+		return False
+	# inductive case for non-leaves
+	result = True
+	for c in task.children:
+		result = result and all_leafs_complete(c)
+	return result
 
 def get_size(task):
 	sum = 1

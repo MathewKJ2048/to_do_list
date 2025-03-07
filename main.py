@@ -8,7 +8,7 @@ def process_edit(key):
 	if key in SPECIAL_KEYS or ord(chr(key)) in SPECIAL_CHARS:
 		return
 	if key == curses.KEY_BACKSPACE:
-		if len(select.name)==0:
+		if len(select.name)==0 and len(select.children)==0:
 			purge()
 			view_mode()
 			return
@@ -40,6 +40,8 @@ def process(key):
 					edit_mode()
 			elif key == curses.KEY_ENTER or key == ord('\n') or key == ord("\r"):
 				edit_mode()
+			elif key == curses.KEY_DC:
+				toggle_complete()
 		elif get_mode() == EDIT:
 			if key == curses.KEY_ENTER or key == ord('\n') or key == ord("\r"):
 				view_mode()
@@ -53,7 +55,12 @@ def main(stdscr):
 	curses.init_pair(2,-1,PRIMARY_COLOR)
 	curses.curs_set(0)
 	stdscr.clear()
+	stdscr.refresh()
 	pad = curses.newpad(1024,1024)
+
+	assert get_select()!=None
+
+	
 
 	while True:
 		render(pad,data)
@@ -65,7 +72,8 @@ def main(stdscr):
 
 try:
 	curses.wrapper(main)
-except:
+except Exception:
+	print(e)
 	print("panic exit: save changes? y/n")
 	ch = input()
 	if ch == 'Y' or ch == 'y':
