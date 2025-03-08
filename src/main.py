@@ -70,13 +70,18 @@ def main(stdscr):
 			break
 		
 
-try:
-	curses.wrapper(main)
-except Exception:
-	print(e)
+def outro():
 	print("panic exit: save changes? y/n")
 	ch = input()
 	if ch == 'Y' or ch == 'y':
 		clean_quit()
+
+try:
+	curses.wrapper(main)
+except Exception as e:
+	print(e)
+	outro()
+except KeyboardInterrupt:
+	outro()
 
 	
