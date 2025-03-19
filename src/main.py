@@ -66,7 +66,7 @@ def main(stdscr):
 		render(pad,data)
 		key = stdscr.getch()
 		process(key)
-		if key == ord('q'):
+		if key == ord('q')and get_mode() == VIEW:
 			break
 		
 
