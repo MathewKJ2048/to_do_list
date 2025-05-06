@@ -21,7 +21,7 @@ def render(pad, data):
 	WIDTH = curses.COLS
 	minrow = max(0,y-HEIGHT+1)
 	mincol = max(0,x-WIDTH+len(get_string(get_select()))+2)
-	pad.refresh(minrow,mincol,0,0,HEIGHT-2,WIDTH-2)
+	pad.refresh(minrow,mincol,0,0,HEIGHT-1,WIDTH-1)
 
 def get_render_string(RENDER_LIST):
 	s = ""
